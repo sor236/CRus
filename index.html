@@ -222,8 +222,24 @@
             padding: 0.3rem 0.7rem;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             font-size: 0.6rem;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            flex-wrap: wrap;
+            gap: 0.2rem;
+        }
+        .card-header .match-link {
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+        }
+        .card-header .match-link:hover {
+            text-decoration: underline;
+            color: #93bbfc;
         }
         .tour-badge {
             background: #1e2f2c;
@@ -386,6 +402,50 @@
         "ЦСКА", "Ахмат", "Локомотив", "Динамо", "Крылья Советов",
         "Балтика", "Ростов", "Факел", "Рубин", "Родина", "Акрон"
     ];
+
+    // Ссылки на страницы матчей на championat.com (из календаря турнира)
+    // https://www.championat.com/football/_russiapl/tournament/7096/calendar/
+    const matchLinks = {
+        1: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318844/",
+        2: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318876/",
+        3: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318846/",
+        4: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318878/",
+        5: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318872/",
+        6: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318880/",
+        7: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318842/",
+        8: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318868/",
+        9: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318848/",
+        10: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318870/",
+        11: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318862/",
+        12: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318858/",
+        13: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318874/",
+        14: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318850/",
+        15: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318864/",
+        16: "https://www.championat.com/football/_russiapl/tournament/7096/match/1318866/"
+    };
+
+    // Время начала матчей (московское) — из расписания РПЛ
+    const matchTimes = {
+        1: "20:00",
+        2: "14:00",
+        3: "16:15",
+        4: "18:30",
+        5: "20:45",
+        6: "14:30",
+        7: "17:00",
+        8: "19:30",
+        9: "20:00",
+        10: "14:00",
+        11: "16:15",
+        12: "18:30",
+        13: "20:45",
+        14: "16:00",
+        15: "18:15",
+        16: "20:30"
+    };
+
+    // Для остальных матчей пока нет точного времени, но можно указать заглушку
+    // или оставить пустым. В дальнейшем можно добавить все времена из календаря.
 
     const matchData = [
         // 1-й тур (24-27 июля)
@@ -828,7 +888,7 @@
     }
 
     // ===================================================================
-    // ОТОБРАЖЕНИЕ МАТЧЕЙ С РАСКРАСКОЙ
+    // ОТОБРАЖЕНИЕ МАТЧЕЙ С РАСКРАСКОЙ, ВРЕМЕНЕМ И ССЫЛКАМИ
     // ===================================================================
     function getActiveTour() {
         const activeBtn = document.querySelector('.bottom-btn.active');
@@ -869,12 +929,15 @@
             const homeVal = s?.home !== undefined ? s.home : '';
             const awayVal = s?.away !== undefined ? s.away : '';
             const isPlayed = s && s.home !== undefined && s.away !== undefined;
+            const time = matchTimes[m.id] || '';
+            const link = matchLinks[m.id] || '#';
 
             html += `
                 <div class="match-card" data-id="${m.id}">
                     <div class="card-header">
                         <span class="tour-badge">${m.tour}-й тур</span>
-                        <span>${m.date}</span>
+                        <span>${m.date} ${time ? time : ''}</span>
+                        <a href="${link}" target="_blank" class="match-link"><i class="fas fa-external-link-alt"></i> Championat</a>
                     </div>
                     <div class="teams">
                         <div class="team"><i class="fas fa-shield-alt"></i> ${m.home}</div>
