@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ЧМ 2026 · Рейтинг экспертов</title>
+    <title>РПЛ 2026/2027 · Рейтинг экспертов</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -13,6 +14,7 @@
             background: radial-gradient(circle at 10% 30%, #0a1f1e, #05100f);
             color: #f0f3f8;
             line-height: 1.4;
+            padding-top: 60px;
         }
         body::before {
             content: "";
@@ -32,321 +34,690 @@
             z-index: 2;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 1.5rem 4rem;
+            padding: 0.8rem 1rem 4.5rem;
         }
-        .hero { text-align: center; margin-bottom: 2rem; }
-        .hero h1 { font-size: 2.5rem; background: linear-gradient(135deg, #fff, #b9fbc0, #2dd4bf); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .hero .sub { font-size: 1rem; color: #b6e6e0; margin-top: 0.5rem; }
-        .experts-rank {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(45,212,191,0.4);
-            overflow-x: auto;
-        }
-        .experts-rank h3 { margin-bottom: 0.8rem; font-size: 1.2rem; }
-        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        .rank-table th, .rank-table td { padding: 0.6rem 0.3rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .rank-table th { background: rgba(45,212,191,0.25); font-weight: 700; }
-        .rank-table .expert-name { text-align: left; font-weight: 600; font-size: 1rem; }
-        .rank-1 { background: #22c55e; color: #000; font-weight: bold; }
-        .rank-2 { background: #3b82f6; color: #fff; font-weight: bold; }
-        .rank-3 { background: #eab308; color: #000; font-weight: bold; }
 
-        .filter-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-bottom: 2rem; }
-        .filter-btn {
-            background: rgba(20, 35, 33, 0.7);
+        .top-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(72, 187, 160, 0.4);
-            padding: 0.5rem 1.2rem;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: #e2f2ef;
-            cursor: pointer;
-        }
-        .filter-btn.active { background: #2dd4bf; color: #05100f; }
-        .standings {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            border-radius: 1.5rem;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            overflow-x: auto;
-            border: 1px solid rgba(45,212,191,0.3);
-        }
-        .standings h3 { margin-bottom: 0.8rem; font-size: 1.2rem; }
-        .standings table { width: 100%; border-collapse: collapse; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.2); }
-        .standings th, .standings td { padding: 0.5rem 0.3rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
-        .standings th { background: rgba(45,212,191,0.2); font-weight: 600; }
-        .team-name { text-align: left; font-weight: 500; font-size: 1.1rem; }
-        .matches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.5rem; }
-        .match-card {
-            background: rgba(12, 27, 25, 0.75);
-            backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(45,212,191,0.25);
-            transition: transform 0.2s, box-shadow 0.2s;
-            overflow: hidden;
-        }
-        .match-card:hover { transform: translateY(-3px); }
-        .card-header {
-            background: rgba(0,0,0,0.4);
-            padding: 0.7rem 1rem;
+            padding: 0.4rem 1rem;
+            z-index: 100;
             display: flex;
-            justify-content: space-between;
-            font-size: 0.7rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .group-badge { background: #1e2f2c; padding: 0.2rem 0.8rem; border-radius: 30px; font-weight: 700; }
-        .teams { display: flex; justify-content: space-between; align-items: center; padding: 1rem; gap: 0.5rem; }
-        .team {
-            display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             align-items: center;
-            text-align: center;
-            gap: 5px;
-            background: rgba(0,0,0,0.3);
-            padding: 0.4rem;
-            border-radius: 2rem;
-            flex: 1;
-            word-break: break-word;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-        .team.win { color: #4ade80; }
-        .team.loss { color: #f87171; }
-        .team.draw { color: #60a5fa; }
-        .team i { font-size: 1.2rem; color: inherit; }
-        .vs { background: #2dd4bf20; padding: 0.2rem 0.8rem; border-radius: 30px; font-weight: 700; }
-        .score-inputs {
-            display: flex;
             justify-content: center;
-            gap: 0.8rem;
-            margin: 0.5rem 1rem;
-            padding: 0.4rem;
-            background: rgba(0,0,0,0.4);
-            border-radius: 2rem;
+            gap: 0.2rem 0.8rem;
+            border-bottom: 1px solid rgba(45, 212, 191, 0.2);
         }
-        .score-inputs input {
-            width: 70px;
-            padding: 0.3rem;
-            text-align: center;
-            font-size: 1rem;
-            font-weight: bold;
-            background: #0c1f1c;
-            border: 1px solid #2dd4bf;
-            color: #f0f3f8;
-            border-radius: 1rem;
-            font-family: monospace;
+        .top-panel .hero-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #e0f5f2, #c2e8d9, #9cd4c7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            white-space: nowrap;
         }
-        .score-inputs input:disabled {
-            opacity: 0.5;
-            background: #1a2a27;
-            cursor: not-allowed;
-        }
-        .forecast-title { font-size: 0.65rem; margin: 0.3rem 1rem; color: #8dcfc6; }
-        .experts-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.3rem 1rem 1rem; justify-content: space-between; }
-        .expert-pred { background: #0c1f1c; border-radius: 1.5rem; flex: 1; text-align: center; padding: 0.3rem 0; font-size: 0.7rem; }
+
         .bottom-panel {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.9);
             backdrop-filter: blur(8px);
             display: flex;
+            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
-            gap: 1rem;
-            padding: 0.6rem;
-            border-top: 1px solid #2dd4bf;
+            gap: 0.4rem;
+            padding: 0.4rem 0.6rem;
             z-index: 100;
+            border-top: 1px solid rgba(45, 212, 191, 0.2);
         }
-        .bottom-btn {
-            background: #ffaa33;
-            border: none;
-            padding: 0.4rem 1.2rem;
-            border-radius: 60px;
+        .bottom-btn, .bottom-link {
+            background: rgba(20, 35, 33, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(72, 187, 160, 0.3);
+            padding: 0.4rem 0.7rem;
+            border-radius: 30px;
             font-weight: 600;
-            cursor: pointer;
-        }
-        .footer-note {
-            text-align: center;
-            margin-top: 2rem;
             font-size: 0.7rem;
-            opacity: 0.6;
-            margin-bottom: 3rem;
+            color: #e2f2ef;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
         }
-        @media (max-width: 700px) {
-            .app { padding: 1rem; }
-            .team { font-size: 0.9rem; }
-            .score-inputs input { width: 55px; }
+        .bottom-btn.active {
+            background: #2dd4bf;
+            color: #05100f;
+            border-color: #2dd4bf;
+        }
+        .bottom-link:hover {
+            background: rgba(45, 212, 191, 0.25);
+            border-color: #2dd4bf;
+        }
+        .bottom-link i, .bottom-btn i {
+            font-size: 0.9rem;
+        }
+
+        .experts-rank {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(45,212,191,0.3);
+            overflow-x: auto;
+        }
+        .experts-rank h3 {
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 16px;
+        }
+        .experts-rank h3 .matches-played {
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: #b6e6e0;
+            background: rgba(45,212,191,0.15);
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+        }
+        .rank-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            min-width: 500px;
+        }
+        .rank-table th, .rank-table td {
+            padding: 0.4rem 0.2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .rank-table th {
+            background: rgba(45,212,191,0.2);
+            font-weight: 600;
+        }
+        .rank-table .expert-name {
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .rank-1 { background: #22c55e; color: #000; font-weight: bold; }
+        .rank-2 { background: #3b82f6; color: #fff; font-weight: bold; }
+        .rank-3 { background: #eab308; color: #000; font-weight: bold; }
+
+        .standings {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            border: 1px solid rgba(45,212,191,0.2);
+        }
+        .standings h3 {
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .standings table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.7rem;
+            min-width: 350px;
+        }
+        .standings th, .standings td {
+            padding: 0.3rem 0.2rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .standings th {
+            background: rgba(45,212,191,0.15);
+            font-weight: 600;
+        }
+        .standings .team-name {
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .matches-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 600px) {
+            .matches-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1000px) {
+            .matches-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .match-card {
+            background: rgba(12, 27, 25, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 1.2rem;
+            border: 1.5px solid rgba(45, 212, 191, 0.5);
+            transition: transform 0.15s, box-shadow 0.15s;
+            overflow: hidden;
+        }
+        .match-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        .card-header {
+            background: rgba(0,0,0,0.3);
+            padding: 0.3rem 0.7rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .tour-badge {
+            background: #1e2f2c;
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+        .teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.3rem 0.6rem;
+            gap: 0.3rem;
+        }
+        .team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1px;
+            background: rgba(0,0,0,0.2);
+            padding: 0.2rem 0.3rem;
+            border-radius: 1.5rem;
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.2s;
+            word-break: break-word;
+            line-height: 1.2;
+        }
+        .team i { font-size: 0.9rem; color: inherit; }
+        .team.win { color: #4ade80; }
+        .team.loss { color: #f87171; }
+        .team.draw { color: #60a5fa; }
+        .vs {
+            background: #2dd4bf20;
+            padding: 0.1rem 0.5rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+
+        .score-inputs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.1rem 0.6rem;
+        }
+        .score-inputs input {
+            width: 50px;
+            padding: 0.1rem 0;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: transparent;
+            border: 1.5px solid rgba(45, 212, 191, 0.25);
+            border-radius: 0.4rem;
+            color: #ffffff;
+            font-family: monospace;
+            cursor: default;
+            outline: none;
+        }
+        .score-inputs input:disabled {
+            opacity: 1;
+            background: transparent;
+        }
+        .score-inputs span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .experts-grid {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 0.2rem;
+            padding: 0.2rem 0.6rem 0.4rem;
+            justify-content: space-between;
+            overflow-x: auto;
+        }
+        .expert-pred {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 0 1 auto;
+            min-width: 0;
+            padding: 0.1rem 0.2rem;
+            border: 1.5px solid rgba(45, 212, 191, 0.2);
+            border-radius: 0.6rem;
+            background: rgba(0,0,0,0.15);
+            transition: border-color 0.2s;
+        }
+        .expert-pred:hover { border-color: rgba(45, 212, 191, 0.5); }
+        .expert-pred .expert-name {
+            font-weight: 600;
+            font-size: 0.55rem;
+            color: #b6e6e0;
+            white-space: nowrap;
+        }
+        .expert-pred .pred-score {
+            font-weight: 700;
+            font-size: 0.7rem;
+            font-family: monospace;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+        .pred-exact { color: #22c55e; }
+        .pred-diff   { color: #60a5fa; }
+        .pred-outcome { color: #eab308; }
+        .pred-none   { color: #ef4444; }
+        .pred-score-default { color: #cbd5e1; }
+
+        @media (max-width: 480px) {
+            body { padding-top: 50px; }
+            .app { padding: 0.5rem 0.6rem 3.5rem; }
+            .top-panel { padding: 0.3rem 0.6rem; gap: 0.1rem; }
+            .top-panel .hero-title { font-size: 1.2rem; }
+            .bottom-btn, .bottom-link { font-size: 0.6rem; padding: 0.3rem 0.5rem; }
+            .experts-rank h3 { font-size: 0.9rem; }
+            .rank-table { font-size: 0.65rem; min-width: 380px; }
+            .rank-table th, .rank-table td { padding: 0.3rem 0.15rem; }
+            .standings table { font-size: 0.6rem; min-width: 280px; }
+            .standings th, .standings td { padding: 0.2rem 0.15rem; }
+            .team { font-size: 0.85rem; }
+            .score-inputs input { width: 40px; font-size: 1rem; }
+            .expert-pred .expert-name { font-size: 0.5rem; }
+            .expert-pred .pred-score { font-size: 0.6rem; }
+            .match-card { border-radius: 1rem; }
+            .card-header { font-size: 0.5rem; }
+            .tour-badge { font-size: 0.5rem; padding: 0.05rem 0.4rem; }
+        }
+        @media (max-width: 380px) {
+            .team { font-size: 0.75rem; }
+            .score-inputs input { width: 32px; font-size: 0.9rem; }
+            .expert-pred { padding: 0.05rem 0.1rem; }
         }
     </style>
 </head>
 <body>
+
+<div class="top-panel">
+    <div class="hero-title"><i class="fas fa-futbol"></i> РПЛ 2026/2027</div>
+</div>
+
 <div class="app">
-    <div class="hero">
-        <h1><i class="fas fa-futbol"></i> ЧМ 2026 · Рейтинг экспертов</h1>
-        <div class="sub">Групповой этап</div>
-    </div>
-
     <div id="expertsRankContainer" class="experts-rank"></div>
-
-    <div class="filter-bar" id="filterBar"></div>
     <div id="standingsContainer" class="standings"></div>
     <div class="matches-grid" id="matchesContainer"></div>
-    <div class="footer-note">
-        Для изменения счетов введите пароль. После ввода счетов нажмите «Сохранить счета».
-    </div>
 </div>
 
-<div class="bottom-panel">
-    <button id="unlockBtn" class="bottom-btn"><i class="fas fa-lock"></i> Ввести пароль</button>
-    <button id="saveScoresBtn" class="bottom-btn"><i class="fas fa-save"></i> Сохранить счета</button>
-    <button id="resetScoresBtn" class="bottom-btn"><i class="fas fa-undo-alt"></i> Сбросить счета</button>
-    <span id="lockStatus">(заблокировано)</span>
-</div>
+<div class="bottom-panel" id="bottomPanel"></div>
 
 <script>
-    const EDIT_PASSWORD = "CXZaq1!";
-    let isUnlocked = false;
-
-    // ВСЕ ДАННЫЕ ВСТРОЕНЫ (матчи, счета, прогнозы)
-    const matchList = [];
-
-    // Добавляем матчи 1-24 с прогнозами
-    const matchesData = [
-        { id:1, group:"A", date:"11.06.2026", time:"22:00", home:"Мексика", away:"ЮАР", homeScore:2, awayScore:0,
-          pred:["3:1","2:1","3:1","2:0","2:0","3:0"] },
-        { id:2, group:"A", date:"12.06.2026", time:"05:00", home:"Южная Корея", away:"Чехия", homeScore:2, awayScore:1,
-          pred:["1:1","1:2","1:2","1:0","1:1","1:1"] },
-        { id:3, group:"B", date:"12.06.2026", time:"22:00", home:"Канада", away:"Босния и Герцеговина", homeScore:1, awayScore:1,
-          pred:["1:2","1:0","2:1","1:0","2:0","2:1"] },
-        { id:4, group:"D", date:"13.06.2026", time:"04:00", home:"США", away:"Парагвай", homeScore:4, awayScore:1,
-          pred:["2:1","2:0","2:0","1:0","2:0","2:0"] },
-        { id:5, group:"B", date:"13.06.2026", time:"22:00", home:"Катар", away:"Швейцария", homeScore:1, awayScore:1,
-          pred:["1:1","1:2","0:3","0:2","0:3","0:2"] },
-        { id:6, group:"C", date:"14.06.2026", time:"01:00", home:"Бразилия", away:"Марокко", homeScore:1, awayScore:1,
-          pred:["2:1","3:0","2:1","3:0","2:1","3:0"] },
-        { id:7, group:"C", date:"14.06.2026", time:"04:00", home:"Гаити", away:"Шотландия", homeScore:0, awayScore:1,
-          pred:["0:2","0:3","1:3","1:2","0:2","0:4"] },
-        { id:8, group:"D", date:"14.06.2026", time:"07:00", home:"Австралия", away:"Турция", homeScore:2, awayScore:0,
-          pred:["0:3","1:2","1:2","0:2","1:2","1:2"] },
-        { id:9, group:"E", date:"14.06.2026", time:"20:00", home:"Германия", away:"Кюрасао", homeScore:7, awayScore:1,
-          pred:["7:0","8:0","8:0","3:0","5:0","8:0"] },
-        { id:10, group:"F", date:"14.06.2026", time:"23:00", home:"Нидерланды", away:"Япония", homeScore:2, awayScore:2,
-          pred:["1:2","2:1","2:1","1:1","2:1","2:1"] },
-        { id:11, group:"E", date:"15.06.2026", time:"02:00", home:"Кот-д’Ивуар", away:"Эквадор", homeScore:1, awayScore:0,
-          pred:["2:1","3:1","1:1","1:1","1:1","2:2"] },
-        { id:12, group:"F", date:"15.06.2026", time:"05:00", home:"Швеция", away:"Тунис", homeScore:4, awayScore:1,
-          pred:["1:1","2:0","1:0","2:0","1:0","1:0"] },
-        { id:13, group:"H", date:"15.06.2026", time:"19:00", home:"Испания", away:"Кабо-Верде", homeScore:0, awayScore:0,
-          pred:["6:1","5:0","6:0","3:0","4:0","4:0"] },
-        { id:14, group:"G", date:"15.06.2026", time:"22:00", home:"Бельгия", away:"Египет", homeScore:1, awayScore:1,
-          pred:["2:2","3:1","3:1","2:0","2:0","3:1"] },
-        { id:15, group:"H", date:"16.06.2026", time:"01:00", home:"Саудовская Аравия", away:"Уругвай", homeScore:1, awayScore:1,
-          pred:["0:2","1:3","0:3","0:4","0:2","0:2"] },
-        { id:16, group:"G", date:"16.06.2026", time:"04:00", home:"Иран", away:"Новая Зеландия", homeScore:2, awayScore:2,
-          pred:["1:0","2:0","2:0","0:1","1:0","2:1"] },
-        { id:17, group:"I", date:"16.06.2026", time:"22:00", home:"Франция", away:"Сенегал", homeScore:3, awayScore:1,
-          pred:["4:1","3:1","4:1","1:0","2:0","3:1"] },
-        { id:18, group:"I", date:"17.06.2026", time:"01:00", home:"Ирак", away:"Норвегия", homeScore:1, awayScore:4,
-          pred:["0:2","0:2","0:3","0:3","0:2","0:3"] },
-        { id:19, group:"J", date:"17.06.2026", time:"04:00", home:"Аргентина", away:"Алжир", homeScore:3, awayScore:0,
-          pred:["3:2","4:1","3:1","2:0","2:0","2:0"] },
-        { id:20, group:"J", date:"17.06.2026", time:"07:00", home:"Австрия", away:"Иордания", homeScore:3, awayScore:1,
-          pred:["2:1","1:0","3:0","3:0","3:0","3:1"] },
-        { id:21, group:"K", date:"17.06.2026", time:"20:00", home:"Португалия", away:"ДР Конго", homeScore:1, awayScore:1,
-          pred:["3:0","4:0","4:0","2:0","2:0","3:0"] },
-        { id:22, group:"L", date:"17.06.2026", time:"23:00", home:"Англия", away:"Хорватия", homeScore:4, awayScore:2,
-          pred:["2:1","2:2","3:1","1:1","1:1","1:1"] },
-        { id:23, group:"L", date:"18.06.2026", time:"02:00", home:"Гана", away:"Панама", homeScore:1, awayScore:0,
-          pred:["2:2","2:0","2:2","2:1","2:1","2:2"] },
-        { id:24, group:"K", date:"18.06.2026", time:"05:00", home:"Узбекистан", away:"Колумбия", homeScore:1, awayScore:3,
-          pred:["1:3","1:2","0:4","1:2","0:2","0:2"] }
+    // ===================================================================
+    // ДАННЫЕ КОМАНД И МАТЧЕЙ РПЛ 2026/2027
+    // ===================================================================
+    const teams = [
+        "Зенит", "Спартак", "Краснодар", "Динамо Мх", "Оренбург",
+        "ЦСКА", "Ахмат", "Локомотив", "Динамо", "Крылья Советов",
+        "Балтика", "Ростов", "Факел", "Рубин", "Родина", "Акрон"
     ];
 
-    for (let m of matchesData) {
-        matchList.push(m);
-    }
+    const matchData = [
+        // 1-й тур (24-27 июля)
+        { id:1, tour:1, date:"24.07.2026", home:"ЦСКА", away:"Балтика", homeScore:2, awayScore:1 },
+        { id:2, tour:1, date:"25.07.2026", home:"Динамо", away:"Крылья Советов", homeScore:0, awayScore:0 },
+        { id:3, tour:1, date:"25.07.2026", home:"Акрон", away:"Зенит", homeScore:0, awayScore:5 },
+        { id:4, tour:1, date:"25.07.2026", home:"Факел", away:"Динамо Мх", homeScore:1, awayScore:2 },
+        { id:5, tour:1, date:"25.07.2026", home:"Спартак", away:"Родина", homeScore:3, awayScore:0 },
+        { id:6, tour:1, date:"26.07.2026", home:"Оренбург", away:"Ростов", homeScore:2, awayScore:1 },
+        { id:7, tour:1, date:"26.07.2026", home:"Локомотив", away:"Ахмат", homeScore:1, awayScore:1 },
+        { id:8, tour:1, date:"26.07.2026", home:"Рубин", away:"Краснодар", homeScore:1, awayScore:3 },
 
-    // Матчи 25-72 (без прогнозов, без счетов)
-    const groupsMap = {
-        25:"A",26:"B",27:"B",28:"A",29:"D",30:"C",31:"C",32:"D",33:"F",34:"E",35:"E",36:"F",
-        37:"H",38:"G",39:"H",40:"G",41:"J",42:"I",43:"I",44:"J",45:"K",46:"L",47:"L",48:"K",
-        49:"B",50:"B",51:"C",52:"C",53:"A",54:"A",55:"E",56:"E",57:"F",58:"F",59:"D",60:"D",
-        61:"I",62:"I",63:"H",64:"H",65:"G",66:"G",67:"L",68:"L",69:"K",70:"K",71:"J",72:"J"
-    };
-    const datesMap = {
-        25:"18.06.2026",26:"18.06.2026",27:"19.06.2026",28:"19.06.2026",29:"19.06.2026",30:"20.06.2026",
-        31:"20.06.2026",32:"20.06.2026",33:"20.06.2026",34:"20.06.2026",35:"21.06.2026",36:"21.06.2026",
-        37:"21.06.2026",38:"21.06.2026",39:"22.06.2026",40:"22.06.2026",41:"22.06.2026",42:"23.06.2026",
-        43:"23.06.2026",44:"23.06.2026",45:"23.06.2026",46:"23.06.2026",47:"24.06.2026",48:"24.06.2026",
-        49:"24.06.2026",50:"24.06.2026",51:"25.06.2026",52:"25.06.2026",53:"25.06.2026",54:"25.06.2026",
-        55:"25.06.2026",56:"25.06.2026",57:"26.06.2026",58:"26.06.2026",59:"26.06.2026",60:"26.06.2026",
-        61:"26.06.2026",62:"26.06.2026",63:"27.06.2026",64:"27.06.2026",65:"27.06.2026",66:"27.06.2026",
-        67:"28.06.2026",68:"28.06.2026",69:"28.06.2026",70:"28.06.2026",71:"28.06.2026",72:"28.06.2026"
-    };
-    const timesMap = {
-        25:"19:00",26:"22:00",27:"01:00",28:"04:00",29:"22:00",30:"01:00",31:"04:00",32:"07:00",33:"20:00",34:"23:00",
-        35:"03:00",36:"07:00",37:"19:00",38:"22:00",39:"01:00",40:"04:00",41:"20:00",42:"00:00",43:"03:00",44:"06:00",
-        45:"20:00",46:"23:00",47:"02:00",48:"05:00",49:"22:00",50:"22:00",51:"01:00",52:"01:00",53:"04:00",54:"04:00",
-        55:"23:00",56:"23:00",57:"02:00",58:"02:00",59:"05:00",60:"05:00",61:"22:00",62:"22:00",63:"03:00",64:"03:00",
-        65:"06:00",66:"06:00",67:"00:00",68:"00:00",69:"02:30",70:"02:30",71:"05:00",72:"05:00"
-    };
-    const teamsMap = {
-        25:["Чехия","ЮАР"],26:["Швейцария","Босния и Герцеговина"],27:["Канада","Катар"],28:["Мексика","Южная Корея"],
-        29:["США","Австралия"],30:["Шотландия","Марокко"],31:["Бразилия","Гаити"],32:["Турция","Парагвай"],
-        33:["Нидерланды","Швеция"],34:["Германия","Кот-д’Ивуар"],35:["Эквадор","Кюрасао"],36:["Тунис","Япония"],
-        37:["Испания","Саудовская Аравия"],38:["Бельгия","Иран"],39:["Уругвай","Кабо-Верде"],40:["Новая Зеландия","Египет"],
-        41:["Аргентина","Австрия"],42:["Франция","Ирак"],43:["Норвегия","Сенегал"],44:["Иордания","Алжир"],
-        45:["Португалия","Узбекистан"],46:["Англия","Гана"],47:["Панама","Хорватия"],48:["Колумбия","ДР Конго"],
-        49:["Канада","Швейцария"],50:["Босния и Герцеговина","Катар"],51:["Марокко","Гаити"],52:["Шотландия","Бразилия"],
-        53:["Мексика","Чехия"],54:["ЮАР","Южная Корея"],55:["Эквадор","Германия"],56:["Кюрасао","Кот-д’Ивуар"],
-        57:["Тунис","Нидерланды"],58:["Япония","Швеция"],59:["США","Турция"],60:["Парагвай","Австралия"],
-        61:["Норвегия","Франция"],62:["Сенегал","Ирак"],63:["Уругвай","Испания"],64:["Кабо-Верде","Саудовская Аравия"],
-        65:["Новая Зеландия","Бельгия"],66:["Египет","Иран"],67:["Панама","Англия"],68:["Хорватия","Гана"],
-        69:["Колумбия","Португалия"],70:["ДР Конго","Узбекистан"],71:["Алжир","Австрия"],72:["Иордания","Аргентина"]
-    };
+        // 2-й тур (31 июля - 3 августа) — по календарю [citation:9]
+        { id:9, tour:2, date:"31.07.2026", home:"Родина", away:"Ростов", homeScore:null, awayScore:null },
+        { id:10, tour:2, date:"01.08.2026", home:"Акрон", away:"Рубин", homeScore:null, awayScore:null },
+        { id:11, tour:2, date:"01.08.2026", home:"ЦСКА", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:12, tour:2, date:"01.08.2026", home:"Динамо Мх", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:13, tour:2, date:"01.08.2026", home:"Балтика", away:"Динамо", homeScore:null, awayScore:null },
+        { id:14, tour:2, date:"02.08.2026", home:"Оренбург", away:"Зенит", homeScore:null, awayScore:null },
+        { id:15, tour:2, date:"02.08.2026", home:"Краснодар", away:"Факел", homeScore:null, awayScore:null },
+        { id:16, tour:2, date:"02.08.2026", home:"Ахмат", away:"Спартак", homeScore:null, awayScore:null },
 
-    for (let i = 25; i <= 72; i++) {
-        matchList.push({
-            id: i, group: groupsMap[i], date: datesMap[i], time: timesMap[i],
-            home: teamsMap[i][0], away: teamsMap[i][1],
-            homeScore: null, awayScore: null, pred: null
-        });
-    }
+        // 3-й тур (7-10 августа) [citation:9]
+        { id:17, tour:3, date:"08.08.2026", home:"Крылья Советов", away:"Балтика", homeScore:null, awayScore:null },
+        { id:18, tour:3, date:"08.08.2026", home:"Локомотив", away:"Акрон", homeScore:null, awayScore:null },
+        { id:19, tour:3, date:"08.08.2026", home:"Ростов", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:20, tour:3, date:"09.08.2026", home:"Динамо", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:21, tour:3, date:"09.08.2026", home:"Зенит", away:"Родина", homeScore:null, awayScore:null },
+        { id:22, tour:3, date:"09.08.2026", home:"Спартак", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:23, tour:3, date:"09.08.2026", home:"Рубин", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:24, tour:3, date:"10.08.2026", home:"Факел", away:"Ахмат", homeScore:null, awayScore:null },
 
+        // 4-й тур (14-17 августа) [citation:9]
+        { id:25, tour:4, date:"14.08.2026", home:"Оренбург", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:26, tour:4, date:"15.08.2026", home:"Родина", away:"Акрон", homeScore:null, awayScore:null },
+        { id:27, tour:4, date:"15.08.2026", home:"ЦСКА", away:"Факел", homeScore:null, awayScore:null },
+        { id:28, tour:4, date:"15.08.2026", home:"Ростов", away:"Рубин", homeScore:null, awayScore:null },
+        { id:29, tour:4, date:"15.08.2026", home:"Краснодар", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:30, tour:4, date:"16.08.2026", home:"Зенит", away:"Динамо", homeScore:null, awayScore:null },
+        { id:31, tour:4, date:"16.08.2026", home:"Крылья Советов", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:32, tour:4, date:"16.08.2026", home:"Балтика", away:"Спартак", homeScore:null, awayScore:null },
+
+        // 5-й тур (21-24 августа) [citation:9]
+        { id:33, tour:5, date:"22.08.2026", home:"Факел", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:34, tour:5, date:"22.08.2026", home:"Ахмат", away:"Ростов", homeScore:null, awayScore:null },
+        { id:35, tour:5, date:"22.08.2026", home:"ЦСКА", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:36, tour:5, date:"23.08.2026", home:"Акрон", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:37, tour:5, date:"23.08.2026", home:"Динамо", away:"Родина", homeScore:null, awayScore:null },
+        { id:38, tour:5, date:"23.08.2026", home:"Динамо Мх", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:39, tour:5, date:"23.08.2026", home:"Спартак", away:"Зенит", homeScore:null, awayScore:null },
+        { id:40, tour:5, date:"24.08.2026", home:"Балтика", away:"Рубин", homeScore:null, awayScore:null },
+
+        // 6-й тур (28-31 августа) [citation:9]
+        { id:41, tour:6, date:"28.08.2026", home:"Акрон", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:42, tour:6, date:"29.08.2026", home:"Факел", away:"Зенит", homeScore:null, awayScore:null },
+        { id:43, tour:6, date:"29.08.2026", home:"Краснодар", away:"Ростов", homeScore:null, awayScore:null },
+        { id:44, tour:6, date:"29.08.2026", home:"Локомотив", away:"Динамо", homeScore:null, awayScore:null },
+        { id:45, tour:6, date:"29.08.2026", home:"Ахмат", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:46, tour:6, date:"30.08.2026", home:"Родина", away:"Балтика", homeScore:null, awayScore:null },
+        { id:47, tour:6, date:"30.08.2026", home:"Спартак", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:48, tour:6, date:"30.08.2026", home:"Рубин", away:"Динамо Мх", homeScore:null, awayScore:null },
+
+        // 7-й тур (4-7 сентября) [citation:9]
+        { id:49, tour:7, date:"05.09.2026", home:"Крылья Советов", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:50, tour:7, date:"05.09.2026", home:"Зенит", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:51, tour:7, date:"05.09.2026", home:"Ростов", away:"Факел", homeScore:null, awayScore:null },
+        { id:52, tour:7, date:"06.09.2026", home:"Оренбург", away:"Акрон", homeScore:null, awayScore:null },
+        { id:53, tour:7, date:"06.09.2026", home:"Динамо Мх", away:"Родина", homeScore:null, awayScore:null },
+        { id:54, tour:7, date:"06.09.2026", home:"Динамо", away:"Спартак", homeScore:null, awayScore:null },
+        { id:55, tour:7, date:"06.09.2026", home:"Балтика", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:56, tour:7, date:"07.09.2026", home:"Рубин", away:"Ахмат", homeScore:null, awayScore:null },
+
+        // 8-й тур (11-14 сентября) [citation:9]
+        { id:57, tour:8, date:"11.09.2026", home:"Крылья Советов", away:"Родина", homeScore:null, awayScore:null },
+        { id:58, tour:8, date:"12.09.2026", home:"Факел", away:"Балтика", homeScore:null, awayScore:null },
+        { id:59, tour:8, date:"12.09.2026", home:"Зенит", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:60, tour:8, date:"12.09.2026", home:"Динамо", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:61, tour:8, date:"12.09.2026", home:"ЦСКА", away:"Рубин", homeScore:null, awayScore:null },
+        { id:62, tour:8, date:"13.09.2026", home:"Ахмат", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:63, tour:8, date:"13.09.2026", home:"Спартак", away:"Ростов", homeScore:null, awayScore:null },
+        { id:64, tour:8, date:"13.09.2026", home:"Краснодар", away:"Акрон", homeScore:null, awayScore:null },
+
+        // 9-й тур (15-17 сентября) [citation:9]
+        { id:65, tour:9, date:"16.09.2026", home:"Спартак", away:"Факел", homeScore:null, awayScore:null },
+        { id:66, tour:9, date:"16.09.2026", home:"Родина", away:"Рубин", homeScore:null, awayScore:null },
+        { id:67, tour:9, date:"16.09.2026", home:"Балтика", away:"Зенит", homeScore:null, awayScore:null },
+        { id:68, tour:9, date:"16.09.2026", home:"Локомотив", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:69, tour:9, date:"17.09.2026", home:"Оренбург", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:70, tour:9, date:"17.09.2026", home:"Ростов", away:"Динамо", homeScore:null, awayScore:null },
+        { id:71, tour:9, date:"17.09.2026", home:"Акрон", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:72, tour:9, date:"17.09.2026", home:"Динамо Мх", away:"ЦСКА", homeScore:null, awayScore:null },
+
+        // 10-й тур (9-12 октября) [citation:9]
+        { id:73, tour:10, date:"09.10.2026", home:"Крылья Советов", away:"Спартак", homeScore:null, awayScore:null },
+        { id:74, tour:10, date:"09.10.2026", home:"Ростов", away:"Акрон", homeScore:null, awayScore:null },
+        { id:75, tour:10, date:"10.10.2026", home:"Оренбург", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:76, tour:10, date:"10.10.2026", home:"Краснодар", away:"Зенит", homeScore:null, awayScore:null },
+        { id:77, tour:10, date:"10.10.2026", home:"Ахмат", away:"Балтика", homeScore:null, awayScore:null },
+        { id:78, tour:10, date:"11.10.2026", home:"ЦСКА", away:"Родина", homeScore:null, awayScore:null },
+        { id:79, tour:10, date:"11.10.2026", home:"Рубин", away:"Динамо", homeScore:null, awayScore:null },
+        { id:80, tour:10, date:"12.10.2026", home:"Факел", away:"Локомотив", homeScore:null, awayScore:null },
+
+        // 11-й тур (16-19 октября) [citation:9]
+        { id:81, tour:11, date:"16.10.2026", home:"Динамо", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:82, tour:11, date:"17.10.2026", home:"Спартак", away:"Рубин", homeScore:null, awayScore:null },
+        { id:83, tour:11, date:"17.10.2026", home:"Крылья Советов", away:"Факел", homeScore:null, awayScore:null },
+        { id:84, tour:11, date:"17.10.2026", home:"Динамо Мх", away:"Акрон", homeScore:null, awayScore:null },
+        { id:85, tour:11, date:"18.10.2026", home:"Балтика", away:"Ростов", homeScore:null, awayScore:null },
+        { id:86, tour:11, date:"18.10.2026", home:"Локомотив", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:87, tour:11, date:"18.10.2026", home:"Родина", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:88, tour:11, date:"19.10.2026", home:"Зенит", away:"Ахмат", homeScore:null, awayScore:null },
+
+        // 12-й тур (23-26 октября) [citation:9]
+        { id:89, tour:12, date:"23.10.2026", home:"Ростов", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:90, tour:12, date:"24.10.2026", home:"Краснодар", away:"Балтика", homeScore:null, awayScore:null },
+        { id:91, tour:12, date:"24.10.2026", home:"Ахмат", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:92, tour:12, date:"24.10.2026", home:"ЦСКА", away:"Спартак", homeScore:null, awayScore:null },
+        { id:93, tour:12, date:"25.10.2026", home:"Рубин", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:94, tour:12, date:"25.10.2026", home:"Акрон", away:"Динамо", homeScore:null, awayScore:null },
+        { id:95, tour:12, date:"25.10.2026", home:"Зенит", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:96, tour:12, date:"26.10.2026", home:"Факел", away:"Родина", homeScore:null, awayScore:null },
+
+        // 13-й тур (30 октября - 2 ноября) [citation:9]
+        { id:97, tour:13, date:"30.10.2026", home:"Динамо", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:98, tour:13, date:"31.10.2026", home:"Крылья Советов", away:"Зенит", homeScore:null, awayScore:null },
+        { id:99, tour:13, date:"31.10.2026", home:"Динамо Мх", away:"Ростов", homeScore:null, awayScore:null },
+        { id:100, tour:13, date:"31.10.2026", home:"Балтика", away:"Акрон", homeScore:null, awayScore:null },
+        { id:101, tour:13, date:"01.11.2026", home:"Оренбург", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:102, tour:13, date:"01.11.2026", home:"Локомотив", away:"Спартак", homeScore:null, awayScore:null },
+        { id:103, tour:13, date:"01.11.2026", home:"Родина", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:104, tour:13, date:"02.11.2026", home:"Рубин", away:"Факел", homeScore:null, awayScore:null },
+
+        // 14-й тур (6-8 ноября) [citation:9]
+        { id:105, tour:14, date:"06.11.2026", home:"Спартак", away:"Акрон", homeScore:null, awayScore:null },
+        { id:106, tour:14, date:"07.11.2026", home:"Крылья Советов", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:107, tour:14, date:"07.11.2026", home:"Балтика", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:108, tour:14, date:"07.11.2026", home:"Локомотив", away:"Рубин", homeScore:null, awayScore:null },
+        { id:109, tour:14, date:"08.11.2026", home:"Краснодар", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:110, tour:14, date:"08.11.2026", home:"Ахмат", away:"Родина", homeScore:null, awayScore:null },
+        { id:111, tour:14, date:"08.11.2026", home:"Зенит", away:"Ростов", homeScore:null, awayScore:null },
+        { id:112, tour:14, date:"08.11.2026", home:"Факел", away:"Динамо", homeScore:null, awayScore:null },
+
+        // 15-й тур (20-23 ноября) [citation:9]
+        { id:113, tour:15, date:"20.11.2026", home:"Динамо", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:114, tour:15, date:"21.11.2026", home:"Динамо Мх", away:"Спартак", homeScore:null, awayScore:null },
+        { id:115, tour:15, date:"21.11.2026", home:"Ростов", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:116, tour:15, date:"21.11.2026", home:"Оренбург", away:"Балтика", homeScore:null, awayScore:null },
+        { id:117, tour:15, date:"22.11.2026", home:"ЦСКА", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:118, tour:15, date:"22.11.2026", home:"Родина", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:119, tour:15, date:"22.11.2026", home:"Рубин", away:"Зенит", homeScore:null, awayScore:null },
+        { id:120, tour:15, date:"23.11.2026", home:"Акрон", away:"Факел", homeScore:null, awayScore:null },
+
+        // 16-й тур (27-30 ноября) [citation:9]
+        { id:121, tour:16, date:"27.11.2026", home:"Крылья Советов", away:"Динамо", homeScore:null, awayScore:null },
+        { id:122, tour:16, date:"28.11.2026", home:"Ростов", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:123, tour:16, date:"28.11.2026", home:"Балтика", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:124, tour:16, date:"28.11.2026", home:"Оренбург", away:"Родина", homeScore:null, awayScore:null },
+        { id:125, tour:16, date:"29.11.2026", home:"Локомотив", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:126, tour:16, date:"29.11.2026", home:"ЦСКА", away:"Зенит", homeScore:null, awayScore:null },
+        { id:127, tour:16, date:"29.11.2026", home:"Рубин", away:"Акрон", homeScore:null, awayScore:null },
+        { id:128, tour:16, date:"30.11.2026", home:"Факел", away:"Спартак", homeScore:null, awayScore:null },
+
+        // 17-й тур (4-7 декабря) [citation:9]
+        { id:129, tour:17, date:"04.12.2026", home:"Спартак", away:"Динамо", homeScore:null, awayScore:null },
+        { id:130, tour:17, date:"05.12.2026", home:"Динамо Мх", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:131, tour:17, date:"05.12.2026", home:"Краснодар", away:"Рубин", homeScore:null, awayScore:null },
+        { id:132, tour:17, date:"05.12.2026", home:"Ахмат", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:133, tour:17, date:"06.12.2026", home:"Родина", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:134, tour:17, date:"06.12.2026", home:"Акрон", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:135, tour:17, date:"06.12.2026", home:"Зенит", away:"Балтика", homeScore:null, awayScore:null },
+        { id:136, tour:17, date:"07.12.2026", home:"Факел", away:"Ростов", homeScore:null, awayScore:null },
+
+        // 18-й тур (26 февраля - 1 марта) [citation:9]
+        { id:137, tour:18, date:"26.02.2027", home:"Динамо", away:"Рубин", homeScore:null, awayScore:null },
+        { id:138, tour:18, date:"27.02.2027", home:"Крылья Советов", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:139, tour:18, date:"27.02.2027", home:"Динамо Мх", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:140, tour:18, date:"27.02.2027", home:"Балтика", away:"Родина", homeScore:null, awayScore:null },
+        { id:141, tour:18, date:"28.02.2027", home:"Краснодар", away:"Спартак", homeScore:null, awayScore:null },
+        { id:142, tour:18, date:"28.02.2027", home:"Ахмат", away:"Акрон", homeScore:null, awayScore:null },
+        { id:143, tour:18, date:"28.02.2027", home:"ЦСКА", away:"Ростов", homeScore:null, awayScore:null },
+        { id:144, tour:18, date:"01.03.2027", home:"Зенит", away:"Факел", homeScore:null, awayScore:null },
+
+        // 19-й тур (5-8 марта) [citation:9]
+        { id:145, tour:19, date:"05.03.2027", home:"Динамо Мх", away:"Факел", homeScore:null, awayScore:null },
+        { id:146, tour:19, date:"06.03.2027", home:"Ростов", away:"Балтика", homeScore:null, awayScore:null },
+        { id:147, tour:19, date:"06.03.2027", home:"Локомотив", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:148, tour:19, date:"07.03.2027", home:"Краснодар", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:149, tour:19, date:"07.03.2027", home:"Ахмат", away:"Рубин", homeScore:null, awayScore:null },
+        { id:150, tour:19, date:"07.03.2027", home:"Родина", away:"Динамо", homeScore:null, awayScore:null },
+        { id:151, tour:19, date:"08.03.2027", home:"Акрон", away:"Спартак", homeScore:null, awayScore:null },
+        { id:152, tour:19, date:"08.03.2027", home:"Зенит", away:"Оренбург", homeScore:null, awayScore:null },
+
+        // 20-й тур (12-15 марта) [citation:9]
+        { id:153, tour:20, date:"12.03.2027", home:"Динамо", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:154, tour:20, date:"13.03.2027", home:"Спартак", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:155, tour:20, date:"13.03.2027", home:"Балтика", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:156, tour:20, date:"13.03.2027", home:"Оренбург", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:157, tour:20, date:"14.03.2027", home:"Родина", away:"Зенит", homeScore:null, awayScore:null },
+        { id:158, tour:20, date:"14.03.2027", home:"Рубин", away:"Ростов", homeScore:null, awayScore:null },
+        { id:159, tour:20, date:"15.03.2027", home:"Акрон", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:160, tour:20, date:"15.03.2027", home:"Факел", away:"ЦСКА", homeScore:null, awayScore:null },
+
+        // 21-й тур (19-21 марта) [citation:9]
+        { id:161, tour:21, date:"19.03.2027", home:"Крылья Советов", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:162, tour:21, date:"20.03.2027", home:"Динамо Мх", away:"Балтика", homeScore:null, awayScore:null },
+        { id:163, tour:21, date:"20.03.2027", home:"Ростов", away:"Родина", homeScore:null, awayScore:null },
+        { id:164, tour:21, date:"20.03.2027", home:"Локомотив", away:"Факел", homeScore:null, awayScore:null },
+        { id:165, tour:21, date:"21.03.2027", home:"Краснодар", away:"Динамо", homeScore:null, awayScore:null },
+        { id:166, tour:21, date:"21.03.2027", home:"ЦСКА", away:"Акрон", homeScore:null, awayScore:null },
+        { id:167, tour:21, date:"21.03.2027", home:"Рубин", away:"Спартак", homeScore:null, awayScore:null },
+        { id:168, tour:21, date:"21.03.2027", home:"Зенит", away:"Оренбург", homeScore:null, awayScore:null },
+
+        // 22-й тур (2-5 апреля) [citation:9]
+        { id:169, tour:22, date:"02.04.2027", home:"Динамо", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:170, tour:22, date:"03.04.2027", home:"Спартак", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:171, tour:22, date:"03.04.2027", home:"Ахмат", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:172, tour:22, date:"04.04.2027", home:"Балтика", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:173, tour:22, date:"04.04.2027", home:"Оренбург", away:"Рубин", homeScore:null, awayScore:null },
+        { id:174, tour:22, date:"04.04.2027", home:"Родина", away:"Факел", homeScore:null, awayScore:null },
+        { id:175, tour:22, date:"05.04.2027", home:"Акрон", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:176, tour:22, date:"05.04.2027", home:"Ростов", away:"Зенит", homeScore:null, awayScore:null },
+
+        // 23-й тур (9-12 апреля) [citation:9]
+        { id:177, tour:23, date:"09.04.2027", home:"Крылья Советов", away:"Акрон", homeScore:null, awayScore:null },
+        { id:178, tour:23, date:"10.04.2027", home:"Динамо Мх", away:"Рубин", homeScore:null, awayScore:null },
+        { id:179, tour:23, date:"10.04.2027", home:"Ростов", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:180, tour:23, date:"11.04.2027", home:"Локомотив", away:"Балтика", homeScore:null, awayScore:null },
+        { id:181, tour:23, date:"11.04.2027", home:"Краснодар", away:"Родина", homeScore:null, awayScore:null },
+        { id:182, tour:23, date:"12.04.2027", home:"ЦСКА", away:"Динамо", homeScore:null, awayScore:null },
+        { id:183, tour:23, date:"12.04.2027", home:"Факел", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:184, tour:23, date:"12.04.2027", home:"Зенит", away:"Спартак", homeScore:null, awayScore:null },
+
+        // 24-й тур (16-19 апреля) [citation:9]
+        { id:185, tour:24, date:"16.04.2027", home:"Динамо", away:"Балтика", homeScore:null, awayScore:null },
+        { id:186, tour:24, date:"17.04.2027", home:"Крылья Советов", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:187, tour:24, date:"17.04.2027", home:"Ахмат", away:"Зенит", homeScore:null, awayScore:null },
+        { id:188, tour:24, date:"18.04.2027", home:"Оренбург", away:"Факел", homeScore:null, awayScore:null },
+        { id:189, tour:24, date:"18.04.2027", home:"Родина", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:190, tour:24, date:"18.04.2027", home:"Рубин", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:191, tour:24, date:"19.04.2027", home:"Акрон", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:192, tour:24, date:"19.04.2027", home:"Спартак", away:"Ростов", homeScore:null, awayScore:null },
+
+        // 25-й тур (23-26 апреля) [citation:9]
+        { id:193, tour:25, date:"23.04.2027", home:"Ростов", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:194, tour:25, date:"24.04.2027", home:"Локомотив", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:195, tour:25, date:"24.04.2027", home:"Краснодар", away:"Рубин", homeScore:null, awayScore:null },
+        { id:196, tour:25, date:"25.04.2027", home:"Балтика", away:"Факел", homeScore:null, awayScore:null },
+        { id:197, tour:25, date:"25.04.2027", home:"ЦСКА", away:"Спартак", homeScore:null, awayScore:null },
+        { id:198, tour:25, date:"26.04.2027", home:"Динамо", away:"Зенит", homeScore:null, awayScore:null },
+        { id:199, tour:25, date:"26.04.2027", home:"Родина", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:200, tour:25, date:"26.04.2027", home:"Ахмат", away:"Акрон", homeScore:null, awayScore:null },
+
+        // 26-й тур (30 апреля - 3 мая) [citation:9]
+        { id:201, tour:26, date:"30.04.2027", home:"Крылья Советов", away:"Ростов", homeScore:null, awayScore:null },
+        { id:202, tour:26, date:"01.05.2027", home:"Оренбург", away:"Динамо", homeScore:null, awayScore:null },
+        { id:203, tour:26, date:"01.05.2027", home:"Рубин", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:204, tour:26, date:"02.05.2027", home:"Спартак", away:"Балтика", homeScore:null, awayScore:null },
+        { id:205, tour:26, date:"02.05.2027", home:"Динамо Мх", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:206, tour:26, date:"02.05.2027", home:"Факел", away:"Акрон", homeScore:null, awayScore:null },
+        { id:207, tour:26, date:"03.05.2027", home:"Локомотив", away:"Зенит", homeScore:null, awayScore:null },
+        { id:208, tour:26, date:"03.05.2027", home:"Краснодар", away:"Родина", homeScore:null, awayScore:null },
+
+        // 27-й тур (7-10 мая) [citation:9]
+        { id:209, tour:27, date:"07.05.2027", home:"Динамо", away:"Факел", homeScore:null, awayScore:null },
+        { id:210, tour:27, date:"08.05.2027", home:"Ростов", away:"Рубин", homeScore:null, awayScore:null },
+        { id:211, tour:27, date:"08.05.2027", home:"Балтика", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:212, tour:27, date:"08.05.2027", home:"Ахмат", away:"ЦСКА", homeScore:null, awayScore:null },
+        { id:213, tour:27, date:"09.05.2027", home:"Спартак", away:"Локомотив", homeScore:null, awayScore:null },
+        { id:214, tour:27, date:"09.05.2027", home:"Крылья Советов", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:215, tour:27, date:"10.05.2027", home:"Зенит", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:216, tour:27, date:"10.05.2027", home:"Акрон", away:"Родина", homeScore:null, awayScore:null },
+
+        // 28-й тур (14-17 мая) [citation:9]
+        { id:217, tour:28, date:"14.05.2027", home:"Рубин", away:"Балтика", homeScore:null, awayScore:null },
+        { id:218, tour:28, date:"15.05.2027", home:"Оренбург", away:"Спартак", homeScore:null, awayScore:null },
+        { id:219, tour:28, date:"15.05.2027", home:"Локомотив", away:"Ростов", homeScore:null, awayScore:null },
+        { id:220, tour:28, date:"16.05.2027", home:"ЦСКА", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:221, tour:28, date:"16.05.2027", home:"Краснодар", away:"Факел", homeScore:null, awayScore:null },
+        { id:222, tour:28, date:"16.05.2027", home:"Родина", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:223, tour:28, date:"17.05.2027", home:"Динамо", away:"Акрон", homeScore:null, awayScore:null },
+        { id:224, tour:28, date:"17.05.2027", home:"Зенит", away:"Крылья Советов", homeScore:null, awayScore:null },
+
+        // 29-й тур (21-24 мая) [citation:9]
+        { id:225, tour:29, date:"21.05.2027", home:"Ахмат", away:"Динамо", homeScore:null, awayScore:null },
+        { id:226, tour:29, date:"22.05.2027", home:"Крылья Советов", away:"Рубин", homeScore:null, awayScore:null },
+        { id:227, tour:29, date:"22.05.2027", home:"Ростов", away:"Спартак", homeScore:null, awayScore:null },
+        { id:228, tour:29, date:"22.05.2027", home:"Факел", away:"Краснодар", homeScore:null, awayScore:null },
+        { id:229, tour:29, date:"23.05.2027", home:"Динамо Мх", away:"Зенит", homeScore:null, awayScore:null },
+        { id:230, tour:29, date:"23.05.2027", home:"Балтика", away:"Акрон", homeScore:null, awayScore:null },
+        { id:231, tour:29, date:"24.05.2027", home:"Локомотив", away:"Родина", homeScore:null, awayScore:null },
+        { id:232, tour:29, date:"24.05.2027", home:"Оренбург", away:"ЦСКА", homeScore:null, awayScore:null },
+
+        // 30-й тур (29 мая) [citation:9]
+        { id:233, tour:30, date:"29.05.2027", home:"Динамо", away:"Оренбург", homeScore:null, awayScore:null },
+        { id:234, tour:30, date:"29.05.2027", home:"Спартак", away:"Крылья Советов", homeScore:null, awayScore:null },
+        { id:235, tour:30, date:"29.05.2027", home:"ЦСКА", away:"Динамо Мх", homeScore:null, awayScore:null },
+        { id:236, tour:30, date:"29.05.2027", home:"Зенит", away:"Рубин", homeScore:null, awayScore:null },
+        { id:237, tour:30, date:"29.05.2027", home:"Краснодар", away:"Балтика", homeScore:null, awayScore:null },
+        { id:238, tour:30, date:"29.05.2027", home:"Родина", away:"Факел", homeScore:null, awayScore:null },
+        { id:239, tour:30, date:"29.05.2027", home:"Ростов", away:"Ахмат", homeScore:null, awayScore:null },
+        { id:240, tour:30, date:"29.05.2027", home:"Акрон", away:"Локомотив", homeScore:null, awayScore:null }
+    ];
+
+    // ===================================================================
+    // ЭКСПЕРТЫ
+    // ===================================================================
     const experts = ["Антон", "Георгий", "Герман", "Олег", "Тимур", "Юрий"];
     let scores = {};
 
+    // Загружаем счета из localStorage, инициализируем из данных матчей
     function loadScores() {
-        const saved = localStorage.getItem("wc2026_scores");
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                matchList.forEach(m => {
-                    if (parsed[m.id] !== undefined) scores[m.id] = parsed[m.id];
-                    else scores[m.id] = (m.homeScore !== null ? { home: m.homeScore, away: m.awayScore } : null);
-                });
-            } catch(e) {}
-        } else {
-            matchList.forEach(m => {
-                scores[m.id] = (m.homeScore !== null && m.awayScore !== null) ? { home: m.homeScore, away: m.awayScore } : null;
-            });
-        }
+        const saved = localStorage.getItem("rpl2026_scores");
+        let parsed = saved ? JSON.parse(saved) : {};
+        matchData.forEach(m => {
+            if (m.homeScore !== null && m.awayScore !== null) {
+                scores[m.id] = { home: m.homeScore, away: m.awayScore };
+            } else if (parsed[m.id] !== undefined) {
+                scores[m.id] = parsed[m.id];
+            } else {
+                scores[m.id] = null;
+            }
+        });
+        localStorage.setItem("rpl2026_scores", JSON.stringify(scores));
     }
 
-    function saveScores() {
-        const toSave = {};
-        for (let id in scores) if (scores[id]) toSave[id] = scores[id];
-        localStorage.setItem("wc2026_scores", JSON.stringify(toSave));
-        alert("✅ Счета сохранены!");
-    }
+    // ===================================================================
+    // РЕЙТИНГ ЭКСПЕРТОВ
+    // ===================================================================
+    // Здесь можно вручную задать прогнозы экспертов на матчи
+    // Формат: для каждого матча массив из 6 прогнозов в формате "X:Y"
+    // Если прогноза нет — "—"
+    const predictions = {};
 
     function getPoints(predStr, realHome, realAway) {
         if (!predStr || predStr === "—") return 0;
@@ -364,25 +735,40 @@
 
     function computeExpertsStats() {
         let stats = experts.map(name => ({ name, points: 0, exact: 0, diff: 0, outcome: 0 }));
-        for (let m of matchList) {
+        for (let m of matchData) {
             const real = scores[m.id];
             if (!real || real.home === undefined) continue;
-            if (!m.pred) continue;
+            const preds = predictions[m.id];
+            if (!preds) continue;
             for (let i = 0; i < experts.length; i++) {
-                const pts = getPoints(m.pred[i], real.home, real.away);
+                const pts = getPoints(preds[i], real.home, real.away);
                 if (pts === 3) { stats[i].points += 3; stats[i].exact++; }
                 else if (pts === 2) { stats[i].points += 2; stats[i].diff++; }
                 else if (pts === 1) { stats[i].points += 1; stats[i].outcome++; }
             }
         }
+        stats.forEach(s => { s.totalOutcomes = s.exact + s.diff + s.outcome; });
         stats.sort((a,b) => b.points - a.points || b.exact - a.exact || b.diff - a.diff);
         return stats;
     }
 
+    function countPlayedMatches() {
+        let count = 0;
+        for (let m of matchData) {
+            const s = scores[m.id];
+            if (s && s.home !== undefined && s.away !== undefined) count++;
+        }
+        return count;
+    }
+
     function renderExpertsRank() {
         const stats = computeExpertsStats();
-        let html = `<h3><i class="fas fa-trophy"></i> 🏆 Рейтинг экспертов (3 — точный счёт, 2 — разница, 1 — исход)</h3>
-            <table class="rank-table"><thead><tr><th>Место</th><th>Эксперт</th><th>Очки</th><th>Точных<br>счетов</th><th>Разниц<br>(2 очка)</th><th>Исходов<br>(1 очко)</th></tr></thead><tbody>`;
+        const played = countPlayedMatches();
+        let html = `<h3>
+                        <span><i class="fas fa-trophy"></i> 🏆 Рейтинг экспертов</span>
+                        <span class="matches-played">Сыграно ${played} матчей</span>
+                    </h3>
+            <table class="rank-table"><thead><tr><th>Место</th><th>Эксперт</th><th>Очки</th><th>Точных</th><th>Разниц</th><th>Исходов</th><th>Всего</th></tr></thead><tbody>`;
         stats.forEach((exp, idx) => {
             let medalClass = "";
             if (idx === 0) medalClass = "rank-1";
@@ -393,18 +779,20 @@
                       <td>${exp.exact}</td>
                       <td>${exp.diff}</td>
                       <td>${exp.outcome}</td>
+                      <td>${exp.totalOutcomes}</td>
                     </tr>`;
         });
         html += `</tbody></table>`;
         document.getElementById('expertsRankContainer').innerHTML = html;
     }
 
-    function computeStandings(group) {
-        const groupMatches = matchList.filter(m => m.group === group);
-        const teams = [...new Set(groupMatches.flatMap(m => [m.home, m.away]))].filter(t => t);
+    // ===================================================================
+    // ТУРНИРНАЯ ТАБЛИЦА
+    // ===================================================================
+    function computeStandings() {
         const stats = {};
         teams.forEach(t => stats[t] = { played:0, wins:0, draws:0, losses:0, gf:0, ga:0, pts:0 });
-        groupMatches.forEach(m => {
+        matchData.forEach(m => {
             const s = scores[m.id];
             if (s && s.home !== undefined && s.away !== undefined) {
                 const hg = s.home, ag = s.away;
@@ -420,13 +808,12 @@
     }
 
     function renderStandings() {
-        const active = document.querySelector('.filter-btn.active')?.getAttribute('data-group');
-        if (!active || active === 'all') { document.getElementById('standingsContainer').innerHTML = ''; return; }
-        const table = computeStandings(active);
-        let html = `<h3><i class="fas fa-table"></i> Группа ${active} · Турнирная таблица</h3>
-            <table><thead><tr><th>Команда</th><th>И</th><th>В</th><th>Н</th><th>П</th><th>З</th><th>П</th><th>О</th></tr></thead><tbody>`;
-        table.forEach(t => {
-            html += `<tr><td class="team-name">${t.name}</td>
+        const table = computeStandings();
+        const container = document.getElementById('standingsContainer');
+        let html = `<h3><i class="fas fa-table"></i> Турнирная таблица РПЛ 2026/2027</h3>
+            <table><thead><tr><th>#</th><th>Команда</th><th>И</th><th>В</th><th>Н</th><th>П</th><th>З</th><th>П</th><th>О</th></tr></thead><tbody>`;
+        table.forEach((t, idx) => {
+            html += `<tr><td>${idx+1}</td><td class="team-name">${t.name}</td>
                         <td>${t.played}</td>
                         <td>${t.wins}</td>
                         <td>${t.draws}</td>
@@ -436,51 +823,33 @@
                         <td><strong>${t.pts}</strong></td>
                     </tr>`;
         });
-        html += `</tbody></table></div>`;
-        document.getElementById('standingsContainer').innerHTML = html;
+        html += `</tbody></table>`;
+        container.innerHTML = html;
     }
 
-    function updateTeamColors() {
-        const active = document.querySelector('.filter-btn.active')?.getAttribute('data-group') || 'all';
-        let filtered = active === 'all' ? matchList : matchList.filter(m => m.group === active);
-        filtered = filtered.filter(m => m.home);
-        for (let m of filtered) {
-            const s = scores[m.id];
-            const homeDiv = document.querySelector(`.match-card[data-id='${m.id}'] .team:first-child`);
-            const awayDiv = document.querySelector(`.match-card[data-id='${m.id}'] .team:last-child`);
-            if (!homeDiv || !awayDiv) continue;
-            homeDiv.classList.remove('win', 'loss', 'draw');
-            awayDiv.classList.remove('win', 'loss', 'draw');
-            if (s && s.home !== undefined && s.away !== undefined) {
-                if (s.home > s.away) {
-                    homeDiv.classList.add('win');
-                    awayDiv.classList.add('loss');
-                } else if (s.home < s.away) {
-                    homeDiv.classList.add('loss');
-                    awayDiv.classList.add('win');
-                } else {
-                    homeDiv.classList.add('draw');
-                    awayDiv.classList.add('draw');
-                }
-            }
-        }
+    // ===================================================================
+    // ОТОБРАЖЕНИЕ МАТЧЕЙ
+    // ===================================================================
+    function getActiveTour() {
+        const activeBtn = document.querySelector('.bottom-btn.active');
+        return activeBtn ? parseInt(activeBtn.getAttribute('data-tour')) : 1;
     }
 
     function renderMatches() {
-        const active = document.querySelector('.filter-btn.active')?.getAttribute('data-group') || 'all';
-        let filtered = active === 'all' ? matchList : matchList.filter(m => m.group === active);
-        filtered = filtered.filter(m => m.home);
+        const activeTour = getActiveTour();
+        let filtered = matchData.filter(m => m.tour === activeTour);
         let html = '';
         for (let m of filtered) {
-            const pred = m.pred ? m.pred : experts.map(() => '—');
             const s = scores[m.id];
             const homeVal = s?.home !== undefined ? s.home : '';
             const awayVal = s?.away !== undefined ? s.away : '';
+            const isPlayed = s && s.home !== undefined && s.away !== undefined;
+
             html += `
                 <div class="match-card" data-id="${m.id}">
                     <div class="card-header">
-                        <span class="group-badge">ГРУППА ${m.group}</span>
-                        <span>${m.date} ${m.time}</span>
+                        <span class="tour-badge">${m.tour}-й тур</span>
+                        <span>${m.date}</span>
                     </div>
                     <div class="teams">
                         <div class="team"><i class="fas fa-shield-alt"></i> ${m.home}</div>
@@ -488,84 +857,66 @@
                         <div class="team">${m.away} <i class="fas fa-shield-alt"></i></div>
                     </div>
                     <div class="score-inputs">
-                        <input type="number" class="home-score" value="${homeVal}" placeholder="0" ${!isUnlocked ? 'disabled' : ''}>
+                        <input type="number" class="home-score" value="${homeVal}" placeholder="0" disabled>
                         <span>:</span>
-                        <input type="number" class="away-score" value="${awayVal}" placeholder="0" ${!isUnlocked ? 'disabled' : ''}>
+                        <input type="number" class="away-score" value="${awayVal}" placeholder="0" disabled>
                     </div>
-                    <div class="forecast-title">ПРОГНОЗЫ ЭКСПЕРТОВ</div>
                     <div class="experts-grid">
-                        ${experts.map((exp, idx) => `<div class="expert-pred"><div>${exp}</div><div>${pred[idx]}</div></div>`).join('')}
+                        ${experts.map((exp, idx) => {
+                            const preds = predictions[m.id];
+                            const predScore = preds ? preds[idx] : '—';
+                            let colorClass = 'pred-score-default';
+                            if (isPlayed) {
+                                const pts = getPoints(predScore, s.home, s.away);
+                                if (pts === 3) colorClass = 'pred-exact';
+                                else if (pts === 2) colorClass = 'pred-diff';
+                                else if (pts === 1) colorClass = 'pred-outcome';
+                                else colorClass = 'pred-none';
+                            }
+                            return `<div class="expert-pred">
+                                        <span class="expert-name">${exp}</span>
+                                        <span class="pred-score ${colorClass}">${predScore}</span>
+                                    </div>`;
+                        }).join('')}
                     </div>
                 </div>
             `;
         }
         document.getElementById('matchesContainer').innerHTML = html;
-        updateTeamColors();
-
-        if (isUnlocked) {
-            document.querySelectorAll('.match-card').forEach(card => {
-                const id = parseInt(card.dataset.id);
-                const homeInp = card.querySelector('.home-score');
-                const awayInp = card.querySelector('.away-score');
-                const update = () => {
-                    const hv = homeInp.value === '' ? undefined : parseInt(homeInp.value);
-                    const av = awayInp.value === '' ? undefined : parseInt(awayInp.value);
-                    scores[id] = (hv !== undefined && av !== undefined && !isNaN(hv) && !isNaN(av)) ? { home: hv, away: av } : null;
-                    renderExpertsRank();
-                    renderStandings();
-                    updateTeamColors();
-                };
-                homeInp.addEventListener('input', update);
-                awayInp.addEventListener('input', update);
-            });
-        }
     }
 
-    function buildFilters() {
-        const groups = [...new Set(matchList.map(m => m.group))].filter(g => g);
-        const container = document.getElementById('filterBar');
-        container.innerHTML = `<button class="filter-btn active" data-group="all">🌍 Все группы</button>` +
-            groups.map(g => `<button class="filter-btn" data-group="${g}">Группа ${g}</button>`).join('');
-        document.querySelectorAll('.filter-btn').forEach(btn => {
+    // ===================================================================
+    // ФИЛЬТРЫ ПО ТУРАМ
+    // ===================================================================
+    function buildBottomFilters() {
+        const container = document.getElementById('bottomPanel');
+        const totalTours = 30;
+
+        let html = `<button class="bottom-btn active" data-tour="1">1 тур</button>`;
+        for (let i = 2; i <= totalTours; i++) {
+            html += `<button class="bottom-btn" data-tour="${i}">${i} тур</button>`;
+        }
+        html += `<a href="https://sor236.github.io/WCF2026/table.html" target="_blank" class="bottom-link"><i class="fas fa-table"></i> Общая</a>`;
+
+        container.innerHTML = html;
+
+        container.querySelectorAll('.bottom-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                container.querySelectorAll('.bottom-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 renderMatches();
-                renderStandings();
             });
         });
     }
 
-    function resetAll() {
-        if (!isUnlocked) { alert("Редактирование заблокировано. Введите пароль."); return; }
-        matchList.forEach(m => {
-            scores[m.id] = (m.homeScore !== null && m.awayScore !== null) ? { home: m.homeScore, away: m.awayScore } : null;
-        });
-        saveScores();
-        renderMatches();
-        renderStandings();
-        renderExpertsRank();
-    }
-
-    function unlock() {
-        const pwd = prompt("Введите пароль:");
-        if (pwd === EDIT_PASSWORD) {
-            isUnlocked = true;
-            document.getElementById('unlockBtn').innerHTML = '<i class="fas fa-check"></i> Режим активен';
-            document.getElementById('lockStatus').innerHTML = '(разблокировано)';
-            renderMatches();
-        } else if (pwd) alert("Неверный пароль!");
-    }
-
-    document.getElementById('unlockBtn').addEventListener('click', unlock);
-    document.getElementById('saveScoresBtn').addEventListener('click', () => { if(isUnlocked) saveScores(); else alert("Введите пароль!"); });
-    document.getElementById('resetScoresBtn').addEventListener('click', resetAll);
-
+    // ===================================================================
+    // ЗАПУСК
+    // ===================================================================
     loadScores();
-    buildFilters();
+    buildBottomFilters();
     renderExpertsRank();
-    renderMatches();
     renderStandings();
+    renderMatches();
 </script>
 </body>
 </html>
