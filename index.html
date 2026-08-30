@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',sans-serif;background:radial-gradient(circle at 10% 30%,#0a1f1e,#05100f);color:#f0f3f8;line-height:1.4;padding-top:60px}
+        body{font-family:'Inter',sans-serif;background:radial-gradient(circle at 10% 30%,#0a1f1e,#05100f);color:#f0f3f8;line-height:1.4;padding-top:60px;padding-bottom:10px}
         body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjciIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikgb3BhY2l0eT0iMC4wNiIvPjwvc3ZnPg==');background-repeat:repeat;pointer-events:none;opacity:.2;z-index:0}
-        .app{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:.8rem 1rem 4.5rem}
+        .app{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:.8rem 1rem 120px}
         .top-panel{position:fixed;top:0;left:0;right:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);padding:.4rem 1rem;z-index:100;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.2rem .8rem;border-bottom:1px solid rgba(45,212,191,.2)}
         .top-panel .hero-title{font-size:1.6rem;font-weight:800;background:linear-gradient(90deg,#e0f5f2,#c2e8d9,#9cd4c7);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.02em;white-space:nowrap}
-        .bottom-panel{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.4rem;padding:.4rem .6rem;z-index:100;border-top:1px solid rgba(45,212,191,.2)}
+        .bottom-panel{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,.95);backdrop-filter:blur(8px);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.4rem;padding:.4rem .6rem;z-index:100;border-top:1px solid rgba(45,212,191,.2)}
         .bottom-btn,.bottom-link{background:rgba(20,35,33,.7);backdrop-filter:blur(4px);border:1px solid rgba(72,187,160,.3);padding:.4rem .7rem;border-radius:30px;font-weight:600;font-size:.7rem;color:#e2f2ef;cursor:pointer;transition:.2s;text-decoration:none;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
         .bottom-btn.active{background:#2dd4bf;color:#05100f;border-color:#2dd4bf}
         .bottom-link:hover{background:rgba(45,212,191,.25);border-color:#2dd4bf}
@@ -60,8 +60,8 @@
         .calendar-grid .day.tour-day{background:rgba(45,212,191,.25);color:#4ade80;font-weight:700;border-radius:50%}
         .calendar-grid .day.tour-day.active-tour{background:rgba(45,212,191,.4);color:#fff}
         .calendar-grid .day.other-month{opacity:.3}
-        @media(max-width:480px){body{padding-top:50px}.app{padding:.5rem .6rem 3.5rem}.top-panel{padding:.3rem .6rem;gap:.1rem}.top-panel .hero-title{font-size:1.2rem}.bottom-btn,.bottom-link{font-size:.6rem;padding:.3rem .5rem}.standings{padding:.5rem}.standings table{font-size:.6rem;min-width:320px}.standings th,.standings td{padding:.15rem .1rem}.standings .team-name{font-size:.65rem;gap:3px}.standings .team-logo{width:16px;height:16px}.standings td:last-child{font-size:.65rem;min-width:24px}.team{font-size:.85rem}.team .team-logo-small{width:20px;height:20px}.score-inputs input{width:40px;font-size:1rem}.matches-grid{gap:.6rem}.match-card{border-radius:1rem}.card-header{font-size:.5rem;padding:.2rem .5rem}.tour-badge{font-size:.5rem;padding:.05rem .4rem}.calendar-wrap{padding:.5rem}.calendar-grid{font-size:.6rem;gap:1px}}
-        @media(max-width:380px){.standings table{font-size:.5rem;min-width:280px}.standings .team-name{font-size:.55rem}.standings .team-logo{width:14px;height:14px}.team{font-size:.75rem}.team .team-logo-small{width:16px;height:16px}.score-inputs input{width:32px;font-size:.9rem}}
+        @media(max-width:480px){body{padding-top:50px;padding-bottom:5px}.app{padding:.5rem .6rem 100px}.top-panel{padding:.3rem .6rem;gap:.1rem}.top-panel .hero-title{font-size:1.2rem}.bottom-btn,.bottom-link{font-size:.6rem;padding:.3rem .5rem}.standings{padding:.5rem}.standings table{font-size:.6rem;min-width:320px}.standings th,.standings td{padding:.15rem .1rem}.standings .team-name{font-size:.65rem;gap:3px}.standings .team-logo{width:16px;height:16px}.standings td:last-child{font-size:.65rem;min-width:24px}.team{font-size:.85rem}.team .team-logo-small{width:20px;height:20px}.score-inputs input{width:40px;font-size:1rem}.matches-grid{gap:.6rem}.match-card{border-radius:1rem}.card-header{font-size:.5rem;padding:.2rem .5rem}.tour-badge{font-size:.5rem;padding:.05rem .4rem}.calendar-wrap{padding:.5rem}.calendar-grid{font-size:.6rem;gap:1px}}
+        @media(max-width:380px){.app{padding:.5rem .6rem 90px}.standings table{font-size:.5rem;min-width:280px}.standings .team-name{font-size:.55rem}.standings .team-logo{width:14px;height:14px}.team{font-size:.75rem}.team .team-logo-small{width:16px;height:16px}.score-inputs input{width:32px;font-size:.9rem}}
     </style>
 </head>
 <body>
@@ -386,7 +386,7 @@ const matchTimes = {
 };
 
 // ===================================================================
-// ДАННЫЕ МАТЧЕЙ (1-5 ТУРЫ С РЕЗУЛЬТАТАМИ, 6-30 БЕЗ РЕЗУЛЬТАТОВ)
+// ДАННЫЕ МАТЧЕЙ (1-6 ТУРЫ С РЕЗУЛЬТАТАМИ, 7-30 БЕЗ РЕЗУЛЬТАТОВ)
 // ===================================================================
 const matchData = [
     // 1-й тур (24-27 июля)
@@ -439,15 +439,17 @@ const matchData = [
     { id:39, tour:5, date:"23.08.2026", home:"Спартак", away:"Зенит", homeScore:2, awayScore:0 },
     { id:40, tour:5, date:"24.08.2026", home:"Балтика", away:"Рубин", homeScore:1, awayScore:1 },
 
-    // 6-30 туры (без результатов)
-    { id:41, tour:6, date:"28.08.2026", home:"Акрон", away:"ЦСКА", homeScore:null, awayScore:null },
-    { id:42, tour:6, date:"29.08.2026", home:"Факел", away:"Зенит", homeScore:null, awayScore:null },
-    { id:43, tour:6, date:"29.08.2026", home:"Краснодар", away:"Ростов", homeScore:null, awayScore:null },
-    { id:44, tour:6, date:"29.08.2026", home:"Локомотив", away:"Динамо", homeScore:null, awayScore:null },
-    { id:45, tour:6, date:"29.08.2026", home:"Ахмат", away:"Крылья Советов", homeScore:null, awayScore:null },
+    // 6-й тур (28-30 августа) - ОБНОВЛЕНО
+    { id:41, tour:6, date:"28.08.2026", home:"Акрон", away:"ЦСКА", homeScore:2, awayScore:2 },
+    { id:42, tour:6, date:"29.08.2026", home:"Факел", away:"Зенит", homeScore:0, awayScore:1 },
+    { id:43, tour:6, date:"29.08.2026", home:"Краснодар", away:"Ростов", homeScore:1, awayScore:0 },
+    { id:44, tour:6, date:"29.08.2026", home:"Локомотив", away:"Динамо", homeScore:0, awayScore:1 },
+    { id:45, tour:6, date:"29.08.2026", home:"Ахмат", away:"Крылья Советов", homeScore:3, awayScore:3 },
     { id:46, tour:6, date:"30.08.2026", home:"Родина", away:"Балтика", homeScore:null, awayScore:null },
     { id:47, tour:6, date:"30.08.2026", home:"Спартак", away:"Оренбург", homeScore:null, awayScore:null },
     { id:48, tour:6, date:"30.08.2026", home:"Рубин", away:"Динамо Мх", homeScore:null, awayScore:null },
+
+    // 7-й тур (5-7 сентября)
     { id:49, tour:7, date:"05.09.2026", home:"Крылья Советов", away:"Краснодар", homeScore:null, awayScore:null },
     { id:50, tour:7, date:"05.09.2026", home:"Зенит", away:"ЦСКА", homeScore:null, awayScore:null },
     { id:51, tour:7, date:"05.09.2026", home:"Ростов", away:"Факел", homeScore:null, awayScore:null },
@@ -456,6 +458,8 @@ const matchData = [
     { id:54, tour:7, date:"06.09.2026", home:"Динамо", away:"Спартак", homeScore:null, awayScore:null },
     { id:55, tour:7, date:"06.09.2026", home:"Балтика", away:"Локомотив", homeScore:null, awayScore:null },
     { id:56, tour:7, date:"07.09.2026", home:"Рубин", away:"Ахмат", homeScore:null, awayScore:null },
+
+    // 8-й тур (11-13 сентября)
     { id:57, tour:8, date:"11.09.2026", home:"Крылья Советов", away:"Родина", homeScore:null, awayScore:null },
     { id:58, tour:8, date:"12.09.2026", home:"Факел", away:"Балтика", homeScore:null, awayScore:null },
     { id:59, tour:8, date:"12.09.2026", home:"Зенит", away:"Локомотив", homeScore:null, awayScore:null },
@@ -464,6 +468,8 @@ const matchData = [
     { id:62, tour:8, date:"13.09.2026", home:"Ахмат", away:"Динамо Мх", homeScore:null, awayScore:null },
     { id:63, tour:8, date:"13.09.2026", home:"Спартак", away:"Ростов", homeScore:null, awayScore:null },
     { id:64, tour:8, date:"13.09.2026", home:"Краснодар", away:"Акрон", homeScore:null, awayScore:null },
+
+    // 9-й тур (16-17 сентября)
     { id:65, tour:9, date:"16.09.2026", home:"Спартак", away:"Факел", homeScore:null, awayScore:null },
     { id:66, tour:9, date:"16.09.2026", home:"Родина", away:"Рубин", homeScore:null, awayScore:null },
     { id:67, tour:9, date:"16.09.2026", home:"Балтика", away:"Зенит", homeScore:null, awayScore:null },
@@ -472,6 +478,8 @@ const matchData = [
     { id:70, tour:9, date:"17.09.2026", home:"Ростов", away:"Динамо", homeScore:null, awayScore:null },
     { id:71, tour:9, date:"17.09.2026", home:"Акрон", away:"Ахмат", homeScore:null, awayScore:null },
     { id:72, tour:9, date:"17.09.2026", home:"Динамо Мх", away:"ЦСКА", homeScore:null, awayScore:null },
+
+    // 10-й тур (10 октября)
     { id:73, tour:10, date:"10.10.2026", home:"Крылья Советов", away:"Спартак", homeScore:null, awayScore:null },
     { id:74, tour:10, date:"10.10.2026", home:"Ростов", away:"Акрон", homeScore:null, awayScore:null },
     { id:75, tour:10, date:"10.10.2026", home:"Оренбург", away:"Динамо Мх", homeScore:null, awayScore:null },
@@ -480,6 +488,8 @@ const matchData = [
     { id:78, tour:10, date:"10.10.2026", home:"ЦСКА", away:"Родина", homeScore:null, awayScore:null },
     { id:79, tour:10, date:"10.10.2026", home:"Рубин", away:"Динамо", homeScore:null, awayScore:null },
     { id:80, tour:10, date:"10.10.2026", home:"Факел", away:"Локомотив", homeScore:null, awayScore:null },
+
+    // 11-й тур (17 октября)
     { id:81, tour:11, date:"17.10.2026", home:"Динамо", away:"ЦСКА", homeScore:null, awayScore:null },
     { id:82, tour:11, date:"17.10.2026", home:"Спартак", away:"Рубин", homeScore:null, awayScore:null },
     { id:83, tour:11, date:"17.10.2026", home:"Крылья Советов", away:"Факел", homeScore:null, awayScore:null },
@@ -488,6 +498,8 @@ const matchData = [
     { id:86, tour:11, date:"17.10.2026", home:"Локомотив", away:"Краснодар", homeScore:null, awayScore:null },
     { id:87, tour:11, date:"17.10.2026", home:"Родина", away:"Оренбург", homeScore:null, awayScore:null },
     { id:88, tour:11, date:"17.10.2026", home:"Зенит", away:"Ахмат", homeScore:null, awayScore:null },
+
+    // 12-й тур (24 октября)
     { id:89, tour:12, date:"24.10.2026", home:"Ростов", away:"Локомотив", homeScore:null, awayScore:null },
     { id:90, tour:12, date:"24.10.2026", home:"Краснодар", away:"Балтика", homeScore:null, awayScore:null },
     { id:91, tour:12, date:"24.10.2026", home:"Ахмат", away:"Оренбург", homeScore:null, awayScore:null },
@@ -496,6 +508,8 @@ const matchData = [
     { id:94, tour:12, date:"24.10.2026", home:"Акрон", away:"Динамо", homeScore:null, awayScore:null },
     { id:95, tour:12, date:"24.10.2026", home:"Зенит", away:"Динамо Мх", homeScore:null, awayScore:null },
     { id:96, tour:12, date:"24.10.2026", home:"Факел", away:"Родина", homeScore:null, awayScore:null },
+
+    // 13-й тур (31 октября)
     { id:97, tour:13, date:"31.10.2026", home:"Динамо", away:"Ахмат", homeScore:null, awayScore:null },
     { id:98, tour:13, date:"31.10.2026", home:"Крылья Советов", away:"Зенит", homeScore:null, awayScore:null },
     { id:99, tour:13, date:"31.10.2026", home:"Динамо Мх", away:"Ростов", homeScore:null, awayScore:null },
@@ -504,6 +518,8 @@ const matchData = [
     { id:102, tour:13, date:"31.10.2026", home:"Локомотив", away:"Спартак", homeScore:null, awayScore:null },
     { id:103, tour:13, date:"31.10.2026", home:"Родина", away:"Краснодар", homeScore:null, awayScore:null },
     { id:104, tour:13, date:"31.10.2026", home:"Рубин", away:"Факел", homeScore:null, awayScore:null },
+
+    // 14-й тур (7 ноября)
     { id:105, tour:14, date:"07.11.2026", home:"Спартак", away:"Акрон", homeScore:null, awayScore:null },
     { id:106, tour:14, date:"07.11.2026", home:"Крылья Советов", away:"Оренбург", homeScore:null, awayScore:null },
     { id:107, tour:14, date:"07.11.2026", home:"Балтика", away:"Динамо Мх", homeScore:null, awayScore:null },
@@ -512,6 +528,8 @@ const matchData = [
     { id:110, tour:14, date:"07.11.2026", home:"Ахмат", away:"Родина", homeScore:null, awayScore:null },
     { id:111, tour:14, date:"07.11.2026", home:"Зенит", away:"Ростов", homeScore:null, awayScore:null },
     { id:112, tour:14, date:"07.11.2026", home:"Факел", away:"Динамо", homeScore:null, awayScore:null },
+
+    // 15-й тур (21 ноября)
     { id:113, tour:15, date:"21.11.2026", home:"Динамо", away:"Краснодар", homeScore:null, awayScore:null },
     { id:114, tour:15, date:"21.11.2026", home:"Динамо Мх", away:"Спартак", homeScore:null, awayScore:null },
     { id:115, tour:15, date:"21.11.2026", home:"Ростов", away:"Крылья Советов", homeScore:null, awayScore:null },
@@ -520,6 +538,8 @@ const matchData = [
     { id:118, tour:15, date:"21.11.2026", home:"Родина", away:"Локомотив", homeScore:null, awayScore:null },
     { id:119, tour:15, date:"21.11.2026", home:"Рубин", away:"Зенит", homeScore:null, awayScore:null },
     { id:120, tour:15, date:"21.11.2026", home:"Акрон", away:"Факел", homeScore:null, awayScore:null },
+
+    // 16-й тур (28 ноября)
     { id:121, tour:16, date:"28.11.2026", home:"Крылья Советов", away:"Динамо", homeScore:null, awayScore:null },
     { id:122, tour:16, date:"28.11.2026", home:"Ростов", away:"Краснодар", homeScore:null, awayScore:null },
     { id:123, tour:16, date:"28.11.2026", home:"Балтика", away:"Ахмат", homeScore:null, awayScore:null },
@@ -528,6 +548,8 @@ const matchData = [
     { id:126, tour:16, date:"28.11.2026", home:"ЦСКА", away:"Зенит", homeScore:null, awayScore:null },
     { id:127, tour:16, date:"28.11.2026", home:"Рубин", away:"Акрон", homeScore:null, awayScore:null },
     { id:128, tour:16, date:"28.11.2026", home:"Факел", away:"Спартак", homeScore:null, awayScore:null },
+
+    // 17-й тур (5 декабря)
     { id:129, tour:17, date:"05.12.2026", home:"Спартак", away:"Динамо", homeScore:null, awayScore:null },
     { id:130, tour:17, date:"05.12.2026", home:"Динамо Мх", away:"Крылья Советов", homeScore:null, awayScore:null },
     { id:131, tour:17, date:"05.12.2026", home:"Краснодар", away:"Рубин", homeScore:null, awayScore:null },
@@ -536,6 +558,8 @@ const matchData = [
     { id:134, tour:17, date:"05.12.2026", home:"Акрон", away:"Оренбург", homeScore:null, awayScore:null },
     { id:135, tour:17, date:"05.12.2026", home:"Зенит", away:"Балтика", homeScore:null, awayScore:null },
     { id:136, tour:17, date:"05.12.2026", home:"Факел", away:"Ростов", homeScore:null, awayScore:null },
+
+    // 18-й тур (27 февраля 2027)
     { id:137, tour:18, date:"27.02.2027", home:"Динамо", away:"Рубин", homeScore:null, awayScore:null },
     { id:138, tour:18, date:"27.02.2027", home:"Крылья Советов", away:"Локомотив", homeScore:null, awayScore:null },
     { id:139, tour:18, date:"27.02.2027", home:"Динамо Мх", away:"Оренбург", homeScore:null, awayScore:null },
@@ -544,6 +568,8 @@ const matchData = [
     { id:142, tour:18, date:"27.02.2027", home:"Ахмат", away:"Акрон", homeScore:null, awayScore:null },
     { id:143, tour:18, date:"27.02.2027", home:"ЦСКА", away:"Ростов", homeScore:null, awayScore:null },
     { id:144, tour:18, date:"27.02.2027", home:"Зенит", away:"Факел", homeScore:null, awayScore:null },
+
+    // 19-й тур (6 марта 2027)
     { id:145, tour:19, date:"06.03.2027", home:"Динамо Мх", away:"Факел", homeScore:null, awayScore:null },
     { id:146, tour:19, date:"06.03.2027", home:"Ростов", away:"Балтика", homeScore:null, awayScore:null },
     { id:147, tour:19, date:"06.03.2027", home:"Локомотив", away:"ЦСКА", homeScore:null, awayScore:null },
@@ -552,6 +578,8 @@ const matchData = [
     { id:150, tour:19, date:"06.03.2027", home:"Родина", away:"Динамо", homeScore:null, awayScore:null },
     { id:151, tour:19, date:"06.03.2027", home:"Акрон", away:"Спартак", homeScore:null, awayScore:null },
     { id:152, tour:19, date:"06.03.2027", home:"Зенит", away:"Оренбург", homeScore:null, awayScore:null },
+
+    // 20-й тур (13 марта 2027)
     { id:153, tour:20, date:"13.03.2027", home:"Динамо", away:"Локомотив", homeScore:null, awayScore:null },
     { id:154, tour:20, date:"13.03.2027", home:"Спартак", away:"Ахмат", homeScore:null, awayScore:null },
     { id:155, tour:20, date:"13.03.2027", home:"Балтика", away:"Краснодар", homeScore:null, awayScore:null },
@@ -560,6 +588,8 @@ const matchData = [
     { id:158, tour:20, date:"13.03.2027", home:"Рубин", away:"Ростов", homeScore:null, awayScore:null },
     { id:159, tour:20, date:"13.03.2027", home:"Акрон", away:"Динамо Мх", homeScore:null, awayScore:null },
     { id:160, tour:20, date:"13.03.2027", home:"Факел", away:"ЦСКА", homeScore:null, awayScore:null },
+
+    // 21-й тур (20 марта 2027)
     { id:161, tour:21, date:"20.03.2027", home:"Крылья Советов", away:"Ахмат", homeScore:null, awayScore:null },
     { id:162, tour:21, date:"20.03.2027", home:"Динамо Мх", away:"Балтика", homeScore:null, awayScore:null },
     { id:163, tour:21, date:"20.03.2027", home:"Ростов", away:"Родина", homeScore:null, awayScore:null },
@@ -568,6 +598,8 @@ const matchData = [
     { id:166, tour:21, date:"20.03.2027", home:"ЦСКА", away:"Акрон", homeScore:null, awayScore:null },
     { id:167, tour:21, date:"20.03.2027", home:"Рубин", away:"Спартак", homeScore:null, awayScore:null },
     { id:168, tour:21, date:"20.03.2027", home:"Зенит", away:"Оренбург", homeScore:null, awayScore:null },
+
+    // 22-й тур (3 апреля 2027)
     { id:169, tour:22, date:"03.04.2027", home:"Динамо", away:"Крылья Советов", homeScore:null, awayScore:null },
     { id:170, tour:22, date:"03.04.2027", home:"Спартак", away:"Динамо Мх", homeScore:null, awayScore:null },
     { id:171, tour:22, date:"03.04.2027", home:"Ахмат", away:"Краснодар", homeScore:null, awayScore:null },
@@ -576,6 +608,8 @@ const matchData = [
     { id:174, tour:22, date:"03.04.2027", home:"Родина", away:"Факел", homeScore:null, awayScore:null },
     { id:175, tour:22, date:"03.04.2027", home:"Акрон", away:"Локомотив", homeScore:null, awayScore:null },
     { id:176, tour:22, date:"03.04.2027", home:"Ростов", away:"Зенит", homeScore:null, awayScore:null },
+
+    // 23-й тур (10 апреля 2027)
     { id:177, tour:23, date:"10.04.2027", home:"Крылья Советов", away:"Акрон", homeScore:null, awayScore:null },
     { id:178, tour:23, date:"10.04.2027", home:"Динамо Мх", away:"Рубин", homeScore:null, awayScore:null },
     { id:179, tour:23, date:"10.04.2027", home:"Ростов", away:"Оренбург", homeScore:null, awayScore:null },
@@ -584,6 +618,8 @@ const matchData = [
     { id:182, tour:23, date:"10.04.2027", home:"ЦСКА", away:"Динамо", homeScore:null, awayScore:null },
     { id:183, tour:23, date:"10.04.2027", home:"Факел", away:"Ахмат", homeScore:null, awayScore:null },
     { id:184, tour:23, date:"10.04.2027", home:"Зенит", away:"Спартак", homeScore:null, awayScore:null },
+
+    // 24-й тур (17 апреля 2027)
     { id:185, tour:24, date:"17.04.2027", home:"Динамо", away:"Балтика", homeScore:null, awayScore:null },
     { id:186, tour:24, date:"17.04.2027", home:"Крылья Советов", away:"ЦСКА", homeScore:null, awayScore:null },
     { id:187, tour:24, date:"17.04.2027", home:"Ахмат", away:"Зенит", homeScore:null, awayScore:null },
@@ -592,6 +628,8 @@ const matchData = [
     { id:190, tour:24, date:"17.04.2027", home:"Рубин", away:"Локомотив", homeScore:null, awayScore:null },
     { id:191, tour:24, date:"17.04.2027", home:"Акрон", away:"Краснодар", homeScore:null, awayScore:null },
     { id:192, tour:24, date:"17.04.2027", home:"Спартак", away:"Ростов", homeScore:null, awayScore:null },
+
+    // 25-й тур (24 апреля 2027)
     { id:193, tour:25, date:"24.04.2027", home:"Ростов", away:"Динамо Мх", homeScore:null, awayScore:null },
     { id:194, tour:25, date:"24.04.2027", home:"Локомотив", away:"Оренбург", homeScore:null, awayScore:null },
     { id:195, tour:25, date:"24.04.2027", home:"Краснодар", away:"Рубин", homeScore:null, awayScore:null },
@@ -600,6 +638,8 @@ const matchData = [
     { id:198, tour:25, date:"24.04.2027", home:"Динамо", away:"Зенит", homeScore:null, awayScore:null },
     { id:199, tour:25, date:"24.04.2027", home:"Родина", away:"Крылья Советов", homeScore:null, awayScore:null },
     { id:200, tour:25, date:"24.04.2027", home:"Ахмат", away:"Акрон", homeScore:null, awayScore:null },
+
+    // 26-й тур (1 мая 2027)
     { id:201, tour:26, date:"01.05.2027", home:"Крылья Советов", away:"Ростов", homeScore:null, awayScore:null },
     { id:202, tour:26, date:"01.05.2027", home:"Оренбург", away:"Динамо", homeScore:null, awayScore:null },
     { id:203, tour:26, date:"01.05.2027", home:"Рубин", away:"ЦСКА", homeScore:null, awayScore:null },
@@ -608,6 +648,8 @@ const matchData = [
     { id:206, tour:26, date:"01.05.2027", home:"Факел", away:"Акрон", homeScore:null, awayScore:null },
     { id:207, tour:26, date:"01.05.2027", home:"Локомотив", away:"Зенит", homeScore:null, awayScore:null },
     { id:208, tour:26, date:"01.05.2027", home:"Краснодар", away:"Родина", homeScore:null, awayScore:null },
+
+    // 27-й тур (8 мая 2027)
     { id:209, tour:27, date:"08.05.2027", home:"Динамо", away:"Факел", homeScore:null, awayScore:null },
     { id:210, tour:27, date:"08.05.2027", home:"Ростов", away:"Рубин", homeScore:null, awayScore:null },
     { id:211, tour:27, date:"08.05.2027", home:"Балтика", away:"Оренбург", homeScore:null, awayScore:null },
@@ -616,6 +658,8 @@ const matchData = [
     { id:214, tour:27, date:"08.05.2027", home:"Крылья Советов", away:"Динамо Мх", homeScore:null, awayScore:null },
     { id:215, tour:27, date:"08.05.2027", home:"Зенит", away:"Краснодар", homeScore:null, awayScore:null },
     { id:216, tour:27, date:"08.05.2027", home:"Акрон", away:"Родина", homeScore:null, awayScore:null },
+
+    // 28-й тур (15 мая 2027)
     { id:217, tour:28, date:"15.05.2027", home:"Рубин", away:"Балтика", homeScore:null, awayScore:null },
     { id:218, tour:28, date:"15.05.2027", home:"Оренбург", away:"Спартак", homeScore:null, awayScore:null },
     { id:219, tour:28, date:"15.05.2027", home:"Локомотив", away:"Ростов", homeScore:null, awayScore:null },
@@ -624,6 +668,8 @@ const matchData = [
     { id:222, tour:28, date:"15.05.2027", home:"Родина", away:"Ахмат", homeScore:null, awayScore:null },
     { id:223, tour:28, date:"15.05.2027", home:"Динамо", away:"Акрон", homeScore:null, awayScore:null },
     { id:224, tour:28, date:"15.05.2027", home:"Зенит", away:"Крылья Советов", homeScore:null, awayScore:null },
+
+    // 29-й тур (22 мая 2027)
     { id:225, tour:29, date:"22.05.2027", home:"Ахмат", away:"Динамо", homeScore:null, awayScore:null },
     { id:226, tour:29, date:"22.05.2027", home:"Крылья Советов", away:"Рубин", homeScore:null, awayScore:null },
     { id:227, tour:29, date:"22.05.2027", home:"Ростов", away:"Спартак", homeScore:null, awayScore:null },
@@ -632,6 +678,8 @@ const matchData = [
     { id:230, tour:29, date:"22.05.2027", home:"Балтика", away:"Акрон", homeScore:null, awayScore:null },
     { id:231, tour:29, date:"22.05.2027", home:"Локомотив", away:"Родина", homeScore:null, awayScore:null },
     { id:232, tour:29, date:"22.05.2027", home:"Оренбург", away:"ЦСКА", homeScore:null, awayScore:null },
+
+    // 30-й тур (29 мая 2027)
     { id:233, tour:30, date:"29.05.2027", home:"Динамо", away:"Оренбург", homeScore:null, awayScore:null },
     { id:234, tour:30, date:"29.05.2027", home:"Спартак", away:"Крылья Советов", homeScore:null, awayScore:null },
     { id:235, tour:30, date:"29.05.2027", home:"ЦСКА", away:"Динамо Мх", homeScore:null, awayScore:null },
